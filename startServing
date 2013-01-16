@@ -1,0 +1,18 @@
+The commands in this file start the server.
+Run them by hand in the following order.
+
+# Redis Server
+#  The default port is 6379. We're going to have to figure out how to 
+#   tell the receiving client to connect. 
+
+#cd redis-2.6.8/src
+./redis-2.6.8/src/redis-server --loglevel debug &
+
+# TODO: Make different channels for different heartrate monitors.
+
+# Start Streaming Dummy Heart Rate Data
+python src/dummyHeartRateData.py &
+
+# Launch node.js server.
+# Web stuff can be found inside this folder
+node pbsb/pubsub &

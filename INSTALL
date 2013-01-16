@@ -1,0 +1,13 @@
+Unzip/tar all.
+
+Follow instructions to make and build each package.
+
+Follow these instructions to install node.js and npm correctly.
+https://gist.github.com/579814#file_node_and_npm_in_30_seconds.sh
+
+Follow these instructions to get node.js dependencies
+http://stackoverflow.com/questions/4441798/how-to-use-redis-publish-subscribe-with-nodejs-to-notify-clients-when-data-value
+And probably use that to get node.js talking.
+
+
+

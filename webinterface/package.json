@@ -1,0 +1,11 @@
+{
+  "name": "PubSubExample",
+  "description": "Redis Publisher subscriber test application",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x",
+    "redis": "0.8.2",
+    "socket.io": "0.9.13"
+  }
+}
