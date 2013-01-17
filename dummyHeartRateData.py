@@ -9,20 +9,23 @@ import random
 import time
 import serial
 
-FAKEDATA = False
+FAKEDATA = True
 
-host = '128.237.119.135'
+host = '128.237.253.170'
 
 r = redis.StrictRedis(host, port=6379, db=0)
 
-port = '/dev/ttyUSB0'
-ser = serial.Serial(port, 9600)
+if(FAKEDATA==False):
+    port = '/dev/ttyUSB0'
+    ser = serial.Serial(port, 9600)
+
 value = 0
 
 while(True):
     time.sleep(.5)
-    value = ser.readline()
-    if(FAKEDATA == FALSE):
+
+    if(FAKEDATA == False):
+        value = ser.readline()
         if('=>' in value):
             #print value[14:]
             newValue = value[14:]
