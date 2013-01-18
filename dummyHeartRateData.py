@@ -10,7 +10,7 @@ import time
 import serial
 import json
 
-fakeHeartRate = False
+fakeHeartRate = True
 fakeLocation = True
 
 #host = '128.237.253.170'
@@ -37,7 +37,8 @@ while(True):
         timeElapsed+=.5
         heartrate = 40 + int(random.normalvariate(10, 5))
     if(fakeLocation == True):
-        if(timeElapsed % 5 == 0):
+        if(timeElapsed > 5):
+            timeElapsed=0
             tempLat = 40.442211 + random.normalvariate(0, .0001)
             tempLong = -79.946405 + random.normalvariate(0, .0001)
         else:
