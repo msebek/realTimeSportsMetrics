@@ -1,5 +1,5 @@
 /*
- * Simple Arduino-based program to read values from the HRMI using the I2C interface
+ * Final program to read values from the HRMI using the I2C interface
  *
  * Connections
  *    Arduino            HRMI
@@ -47,11 +47,12 @@
  * Global variables
  */
 char serInStr[MAX_IN_BUFFSIZE];   // Serial input string array
-int numEntries = 0;               // Number of HR values to request
+int numEntries = 2;               // Number of HR values to request
 int numRspBytes;                  // Number of Response bytes to read
 byte i2cRspArray[34];	          // I2C response array, sized to read 32 HR values
 byte hrmi_addr = HRMI_I2C_ADDR;   // I2C address to use
 
+byte prevValue;
 
 /*
  * Arduino initialization code segment
@@ -64,6 +65,7 @@ void setup()
   // Initialize the serial interface
   Serial.begin(HRMI_HOST_BAUDRATE);
   Serial.println("Initialized!");
+  pinMode(13, OUTPUT);
 }
 
 
@@ -72,25 +74,30 @@ void setup()
  */
 void loop()
 {
-  Serial.println("Mainloop");
   // Request a set of heart rate values
-  hrmiCmdArg(hrmi_addr, 'G', (byte) numEntries);
+//  hrmiCmdArg(hrmi_addr, 'G', (byte) numEntries);
+  hrmiCmdArg(hrmi_addr, 'G', numEntries);
   // Get the response from the HRMI
   numRspBytes = numEntries + 2;
   if (hrmiGetData(hrmi_addr, numRspBytes, i2cRspArray) != -1) {
     // send the results back on the serial interface in ASCII form
-    Serial.write("Request "); Serial.write(numEntries); Serial.write(" => ");
-    for (int i=0; i<numRspBytes; i++) {
-      Serial.print(i2cRspArray[i], DEC);
-      Serial.print(" ");
+    if(i2cRspArray[1] != prevValue) {
+      Serial.print("Hr:");
+      Serial.print(i2cRspArray[2]);
+      Serial.println();
+      prevValue=i2cRspArray[1];
     }
-    Serial.println();
-     }
+    //Serial.print("Entire=>");
+    //for (int i=0; i<numRspBytes; i++) {
+        //temp+=i2cRspArray[i];
+        //Serial.print(i2cRspArray[i], DEC);
+        //Serial.print(" ");
+      
+    //}
     
-  // Setup to do it again
-  if (++numEntries > 30)
-      numEntries = 0;
-  delay(500);                  // Delay part of 1 second between commands
+    // Get the second number
+    //Serial.write("index"); Serial.write(temp.indexOf(1)); Serial.write("|\n");
+  }
 }
 
 
