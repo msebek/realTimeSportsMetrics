@@ -20,7 +20,7 @@ while True:
     #droid.bluetoothWrite('c')
     for s in list(a):
         droid.bluetoothWrite(s)
-        time.sleep(0.05)
+        time.sleep(0.1)
 
     #sensor_data = droid.bluetoothReadLine().result  # read the line with the sensor value from arduino.
     #droid.eventClearBuffer()  # workaround for a bug in SL4A r4.
