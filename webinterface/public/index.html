@@ -246,6 +246,7 @@
 
             });
 
+            /* TODO: limit the number of points on the graph to 8 or so */
             socket.on('message', function (message) {
                 // Message will arrive as json.
                 // format: {"hr": 46, "lat": 40.44217983624454, "lng": -79.946323193841}
@@ -258,16 +259,14 @@
                 if (msg["lat"] != 0 && msg["lng"] != 0) {
                     var latTemp = msg["lat"];
                     var longTemp = msg["lng"];
-                    //assert(latTemp != 'undefined');
-                    //assert(longTemp != 'undefined');
-                    console.log(latTemp);
-                    console.log(longTemp);
+
                     var marker = new google.maps.Marker({
                         position:new google.maps.LatLng(latTemp, longTemp),
                         map:map//,
                         //title:'Click to zoom'
                     });
                     map.panTo(new google.maps.LatLng(latTemp, longTemp));
+
                 }
 
             });
