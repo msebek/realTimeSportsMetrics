@@ -1,6 +1,5 @@
 const PORT = 3000;
 const HOST = 'localhost';
-const REDIS_CHANNEL = 'foo';
 var express = require('express');
 
 // Apps are no longer servers.
@@ -36,11 +35,10 @@ if (!module.parent) {
         subscribe.subscribe('foo');
         
         subscribe.on("message", function(channel, message) {
+            console.info("hello!");
             client.send(message);
         });
 
-        client.on('message', function(msg) {
-        });
 
         client.on('disconnect', function() {
             subscribe.quit();
